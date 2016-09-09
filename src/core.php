@@ -29,6 +29,8 @@ abstract class :xhp {
   abstract protected function &__xhpChildrenDeclaration();
   protected static function &__xhpAttributeDeclaration() {}
 
+  public $source;
+
   /**
    * Enabling validation will give you stricter documents; you won't be able to
    * do many things that violate the XHTML 1.0 Strict spec. It is recommend that

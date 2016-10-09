@@ -743,6 +743,12 @@ class :param extends :xhp:pcdata-element {
   protected $tagName = 'param';
 }
 
+class :picture extends :xhp:html-element {
+  category %flow, %phrase;
+  children (:source*, :img);
+  protected $tagName = 'picture';
+}
+
 class :pre extends :xhp:html-element {
   category %flow;
   children (pcdata | %phrase)*;
@@ -837,7 +843,11 @@ class :small extends :xhp:html-element {
 }
 
 class :source extends :xhp:html-singleton {
-  attribute string media, string src, string type;
+  attribute string media, 
+    string sizes,
+    string src,
+    string srcset,
+    string type;
   protected $tagName = 'source';
 }
 

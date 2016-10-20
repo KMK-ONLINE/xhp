@@ -373,7 +373,8 @@ abstract class :x:composable-element extends :x:base {
    */
   final public function removeAttribute($attr) {
     if (!self::isAttributeSpecial($attr)) {
-      $this->validateAttributeValue($attr, $value = null);
+      $value = null;
+      $this->validateAttributeValue($attr, $value);
     }
     unset($this->attributes[$attr]);
     return $this;

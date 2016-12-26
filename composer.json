@@ -8,8 +8,15 @@
         "ext-xhp": "*"
     },
     "autoload": {
-        "classmap": [
-            "src/"
+        "psr-4": {
+            "Xhp\\": "src/xhp/"
+        },
+        "files": [
+            "src/core.php",
+            "src/html.php"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
     }
 }

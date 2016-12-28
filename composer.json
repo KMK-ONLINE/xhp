@@ -1,5 +1,5 @@
 {
-    "name": "KMK-ONLINE/xhp",
+    "name": "kmklabs/xhp",
     "description": "Class library for XHP",
     "keywords": ["facebook", "xhp", "hhvm", "hack"],
     "homepage": "https://github.com/facebook/xhp-lib",

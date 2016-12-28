@@ -59,11 +59,11 @@ abstract class :xhp {
   }
 
   public static function element2class($element) {
-    return 'xhp_'.str_replace(array(':', '-'), array('__', '_'), $element);
+    return Xhp\ClassLoader::mangle($element);
   }
 
   public static function class2element($class) {
-    return str_replace(array('__', '_'), array(':', '-'), preg_replace('#^xhp_#i', '', $class));
+    return Xhp\ClassLoader::unmangle($class);
   }
 }
 

@@ -107,7 +107,7 @@ class ClassLoader {
     if (strncmp('xhp_', $class, 4)) {
       return false;
     }
-    return str_replace('__', ':', substr($class, 4));
+    return str_replace(array('__', '_'), array(':', '-'), preg_replace('#^xhp_#i', '', $class));
   }
 
   /**
@@ -117,6 +117,6 @@ class ClassLoader {
    * @return string - Mangled name (e.g. "xhp_foo__bar__baz")
    */
   public static function mangle($tag) {
-    return 'xhp_' . str_replace(':', '__', $tag);
+    return 'xhp_'.str_replace(array(':', '-'), array('__', '_'), $tag);
   }
 }

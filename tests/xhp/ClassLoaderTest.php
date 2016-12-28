@@ -42,4 +42,12 @@ class ClassLoaderTest extends PHPUnit_Framework_TestCase {
     $l->register();
     $this->assertEquals('bar-bar', (string)<bar:bar/>);
   }
+
+  public function testUnmangle() {
+    $this->assertSame('foo:bar:baz', Classloader::unmangle(:foo:bar:baz::class));
+  }
+
+  public function testMangle() {
+    $this->assertSame(:foo:bar:baz::class, Classloader::mangle('foo:bar:baz'));
+  }
 }

@@ -21,9 +21,10 @@ class ClassLoader {
    *
    * @param string $prefix - XHP namespace prefix (e.g. ":foo")
    * @param string $path - Filesystem path (e.g. "tags/")
+   * @param bool $hasOwnFolder - If XHP has its own folder
    */
-  public function add($prefix, $path) {
-    $this->map[$prefix] = $path;
+  public function add($prefix, $path, $hasOwnFolder = false) {
+    $this->map[$prefix] = ['path' => $path, 'hasOwnFolder' => $hasOwnFolder];
   }
 
   /**
@@ -74,13 +75,22 @@ class ClassLoader {
     if ($xhpname === ':') {
       return false;
     }
-    foreach ($this->map as $prefix => $path) {
+
+    foreach ($this->map as $prefix => $path_config) {
+      $path = $path_config['path'];
+      $hasOwnFolder = $path_config['hasOwnFolder'];
+
       if (($prefix === $xhpname) ||
-         !strncasecmp($prefix . ':', $xhpname, strlen($prefix) + 1)) {
-        $suffix = substr($xhpname, strlen($prefix));
-        $filename = $path . str_replace(':', '/', $suffix) . '.php';
-        if (file_exists($filename)) {
-          return $filename;
+          !strncasecmp($prefix . ':', $xhpname, strlen($prefix) + 1))
+      {
+        $parts = explode(':', substr($xhpname, strlen($prefix) + 1));
+        $filename = array_pop($parts);
+
+        $pathname = $path . implode('/', $parts) . ($hasOwnFolder ? '/'.$filename : '') . '/' . $filename;
+        foreach (['.php', '.hh'] as $ext) {
+          if (file_exists($pathname . $ext)) {
+            return $pathname . $ext;
+          }
         }
       }
     }
